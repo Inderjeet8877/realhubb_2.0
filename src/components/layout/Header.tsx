@@ -140,25 +140,27 @@ const Header = () => {
   }, [isMobileMenuOpen]);
 
   const navLinks = [
-    { label: "Properties", children: [
-        { path: "/ongoing-projects",  label: "Ongoing Projects"  },
+    { path: "/",              label: "Home"          },
+    { label: "Projects", children: [
         { path: "/upcoming-projects", label: "Upcoming Projects" },
-      ]
-    },
-    { label: "Cities", children: [
-        { path: "/ongoing-projects/bangalore", label: "Bangalore" },
-        { path: "/ongoing-projects/hyderabad", label: "Hyderabad" },
-        { path: "/ongoing-projects/chennai",   label: "Chennai"   },
-      ]
-    },
-    { label: "Services", children: [
-        { path: "/emi-calculator",            label: "EMI Calculator"          },
-        { path: "/home-loan-eligibility",     label: "Loan Eligibility"        },
-        { path: "/rental-yield-calculator",   label: "Rental Yield Calculator" },
-      ]
-    },
-    { path: "/about", label: "About" },
-    { path: "/faq",   label: "FAQ"   },
+        { path: "/ongoing-projects",  label: "Ongoing Projects"  },
+    ]},
+    { label: "Gallery", children: [
+        { path: "/gallery/google-reviews", label: "Reviews & Social Media" },
+        { path: "/gallery/team-gallery",   label: "Team Gallery"           },
+    ]},
+    { path: "/blog",           label: "Blog"           },
+    { path: "/realhubb-news",     label: "News" },
+    { label: "Tools", children: [
+      { path: "/emi-calculator", label: "EMI Calculator" },
+      { path: "/home-loan-eligibility", label: "Loan Eligibility Checker" },
+      { path: "/rental-yield-calculator", label: "Rental Yield Calculator" },
+      { path: "/salary-advisor", label: "Salary EMI Advisor" },
+      { path: "/currency-calculator", label: "Currency Calculator" },
+    ]},
+    { path: "/career",         label: "Career"         },
+    { path: "/about",          label: "About Us"       },
+    { path: "/faq",            label: "FAQ"            },
   ];
 
   const isActive = (path: string) => location.pathname === path;
