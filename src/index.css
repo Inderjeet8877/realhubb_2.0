@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  /* ── Global typography ── */
+  body {
+    font-family: 'Outfit', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Geist', sans-serif;
+  }
+
+  :root {
+    /* Modern Real Estate Color System - Vibrant & Eye-catching */
+    --background: 0 0% 98%;
+    --foreground: 210 20% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 20% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 20% 15%;
+
+    /* Vibrant Teal/Emerald Primary */
+    --primary: 174 62% 47%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 174 62% 57%;
+    --primary-dark: 174 62% 37%;
+
+    /* Teal Accent for CTAs */
+    --secondary: 188 74% 40%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 188 74% 50%;
+
+    /* Brand Pink for Badges */
+    --tertiary: 336 78% 59%; /* #e74685 */
+    --tertiary-foreground: 0 0% 100%;
+    --tertiary-light: 336 78% 69%;
+    --tertiary-dark: 336 78% 49%;
+
+    /* Muted backgrounds */
+    --muted: 210 20% 96%;
+    --muted-foreground: 210 15% 45%;
+
+    /* Accent colors */
+    --accent: 174 55% 92%;
+    --accent-foreground: 174 62% 35%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 20% 88%;
+    --input: 214 20% 92%;
+    --ring: 174 62% 47%;
+
+    --radius: 0.75rem;
+
+    /* Gradients for hero sections */
+    --gradient-primary: linear-gradient(135deg, hsl(174 62% 47%) 0%, hsl(200 80% 45%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(188 74% 40%) 0%, hsl(188 74% 50%) 100%);
+    --gradient-overlay: linear-gradient(135deg, hsl(174 62% 47% / 0.9) 0%, hsl(200 80% 45% / 0.85) 100%);
+    
+    /* Shadows with color */
+    --shadow-primary: 0 10px 40px -10px hsl(174 62% 47% / 0.3);
+    --shadow-card: 0 4px 20px -4px hsl(210 20% 15% / 0.1);
+    --shadow-lg: 0 20px 60px -10px hsl(210 20% 15% / 0.15);
+    
+    /* Smooth transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  .dark {
+    --background: 210 25% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 210 22% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 210 22% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 174 62% 55%;
+    --primary-foreground: 210 25% 8%;
+
+    --secondary: 188 74% 50%;
+    --secondary-foreground: 0 0% 100%;
+
+    --tertiary: 336 78% 59%;
+    --tertiary-foreground: 0 0% 100%;
+
+    --muted: 210 20% 18%;
+    --muted-foreground: 210 15% 65%;
+
+    --accent: 174 50% 20%;
+    --accent-foreground: 174 62% 85%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 20% 20%;
+    --input: 210 20% 18%;
+    --ring: 174 62% 55%;
+  }
+}
+
+@layer base {
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #00274D;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #001d3a;
+  }
+}
+
+@layer components {
+  /* Gradient text effect */
+    .realhubb-card {
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    box-sizing: border-box;
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-primary);
+  }
+
+  /* Hover lift effect */
+  .hover-lift {
+    transition: var(--transition-smooth);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Animated gradient background */
+  .animated-gradient {
+    background: var(--gradient-primary);
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Floating animation for CTA buttons */
+  .float-animation {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Fade in on scroll animations */
+  .fade-in {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+
+  /* Stagger animation delays */
+  .fade-in-delay-1 { animation-delay: 0.1s; }
+  .fade-in-delay-2 { animation-delay: 0.2s; }
+  .fade-in-delay-3 { animation-delay: 0.3s; }
+  .fade-in-delay-4 { animation-delay: 0.4s; }
+}
+
+
+html {
+  scroll-behavior: smooth;
+}

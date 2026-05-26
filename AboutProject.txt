@@ -1,0 +1,804 @@
+================================================================================
+                        REALHUBB — COMPLETE PROJECT OVERVIEW
+                        For Presentation / PPT Reference Document
+================================================================================
+
+PROJECT NAME    : RealHubb
+WEBSITE         : www.realhubb.in
+LOCATION        : Bengaluru, India
+TYPE            : Real Estate Web Application (SPA – Single Page Application)
+PURPOSE         : A full-featured real estate platform connecting property buyers
+                  with premium property listings, developer profiles, market
+                  insights, and financial planning tools across major Indian cities.
+
+================================================================================
+SECTION 1 — TECHNOLOGY STACK
+================================================================================
+
+FRONTEND
+  - React 18          : Component-based UI library
+  - TypeScript        : Strongly typed JavaScript for reliability
+  - Vite              : Ultra-fast build tool and dev server
+  - Tailwind CSS      : Utility-first CSS framework for rapid styling
+  - shadcn/ui         : Pre-built, accessible React UI components
+  - React Router DOM  : Client-side page routing (SPA navigation)
+  - TanStack Query    : Server-state management and data fetching
+
+BACKEND / SERVICES
+  - Firebase Firestore   : Real-time NoSQL cloud database
+  - Firebase Auth        : Secure email/password admin authentication
+  - Cloudinary           : Image hosting and upload service (properties, blogs, team)
+  - Firebase Functions   : Serverless functions for GA4 analytics & push notifications
+  - Google Analytics 4   : Website traffic analytics and reporting
+  - Web Push (FCM/VAPID) : Browser push notification system for subscribers
+
+DEPLOYMENT
+  - Vercel              : Frontend hosting and automatic CI/CD deployments
+  - GitHub Actions      : Build check workflow on every push
+
+================================================================================
+SECTION 2 — WEBSITE ARCHITECTURE (TWO SIDES)
+================================================================================
+
+The application is split into two completely separate experiences:
+
+  1. PUBLIC WEBSITE  — Accessible by all visitors (no login required)
+                      Routes: /, /ongoing-projects, /blog, etc.
+                      Includes: Header + Footer + Navigation
+
+  2. ADMIN PANEL     — Password-protected back-office
+                      Route: /admin/*
+                      No public header/footer — standalone dashboard UI
+                      Secured by: Firebase Authentication (email + password)
+
+================================================================================
+SECTION 3 — ROLES & RESPONSIBILITIES
+================================================================================
+
+--------------------------------------------------------------------------------
+ROLE 1: ADMIN (Back-Office Role)
+--------------------------------------------------------------------------------
+
+WHO IS AN ADMIN?
+  The Admin is the internal team member (RealHubb staff) who logs into the
+  private admin panel at /admin to manage all content on the website.
+  There is one level of admin — secured by Firebase Authentication.
+
+HOW THEY LOG IN:
+  - Visit: www.realhubb.in/admin
+  - Enter admin email (e.g. admin@realhubb.in) and password
+  - Firebase verifies credentials; session persists across browser refreshes
+  - Failed logins show descriptive error messages; too many attempts = lockout
+
+WHAT THE ADMIN CAN DO:
+  The admin panel has 6 main sections (navigation sidebar):
+
+  [A] OVERVIEW DASHBOARD
+      - See live content stats: total properties, blog posts, developers, team
+      - Breakdown of ongoing vs. upcoming properties
+      - Published vs. draft blog posts count
+      - SEO Content Score (0–100 ring chart) based on content completeness
+      - Properties by City bar chart (Bangalore / Hyderabad / Chennai)
+      - Top Blog Categories bar chart
+      - Content Completeness tracker:
+          * Properties with images
+          * Properties with descriptions
+          * Blog posts published
+          * Developers with logos
+          * Team members with photos
+      - Quick Action buttons (Add Property, New Blog, Add Developer, Add Team)
+      - SEO tips based on current score
+      - External links to Firebase Console, Cloudinary, Live Site
+      - Push Notification panel (send alerts to all subscribers)
+
+  [B] PROPERTY MANAGER
+      Full CRUD (Create, Read, Update, Delete) for property listings.
+      (See Section 4 for detailed feature breakdown)
+
+  [C] BLOG MANAGER
+      Full CRUD for blog posts with a rich text editor.
+      (See Section 5 for detailed feature breakdown)
+
+  [D] DEVELOPERS MANAGER
+      Manage real estate developer/builder profiles.
+      (See Section 6 for detailed feature breakdown)
+
+  [E] TEAM MANAGER
+      Manage staff and advisor profiles displayed on the website.
+      (See Section 7 for detailed feature breakdown)
+
+  [F] ANALYTICS
+      View live GA4 traffic data inside the admin panel.
+      (See Section 8 for detailed feature breakdown)
+
+--------------------------------------------------------------------------------
+ROLE 2: PUBLIC VISITOR / USER (Website Visitor)
+--------------------------------------------------------------------------------
+
+WHO IS A PUBLIC USER?
+  Anyone visiting www.realhubb.in — prospective home buyers, investors,
+  NRIs looking for properties, or general users browsing real estate content.
+  No account or login is required.
+
+WHAT PUBLIC USERS CAN DO:
+  - Browse all ongoing and upcoming property listings
+  - Filter properties by city (Bangalore, Hyderabad, Chennai)
+  - View detailed property pages with images, pricing, RERA, amenities, map
+  - Read blog posts and real estate news articles
+  - Use all financial calculators (EMI, loan eligibility, rental yield, etc.)
+  - View developer/builder profiles and their projects
+  - Browse team member profiles
+  - Submit contact/enquiry forms
+  - Subscribe to browser push notifications (for property alerts)
+  - View testimonials, Google reviews, YouTube videos, Instagram/LinkedIn feeds
+  - Browse the photo gallery and team gallery
+  - Apply for careers
+  - Read FAQ, Privacy Policy, Terms of Service
+
+--------------------------------------------------------------------------------
+ROLE 3: TEAM MEMBER (Content Role / Profile Role)
+--------------------------------------------------------------------------------
+
+WHO IS A TEAM MEMBER?
+  Staff members, property advisors, relationship managers, and executives at
+  RealHubb whose profiles are published on the public website.
+  Each team member profile is managed by the Admin through the Team Manager.
+
+TEAM MEMBER PROFILE FIELDS:
+  - Name           : Full name of the staff member
+  - Role / Title   : Their designation (e.g. Property Advisor, Sales Manager,
+                     Relationship Manager, Co-Founder, Executive, etc.)
+  - Photo          : Professional profile photo (uploaded via Cloudinary)
+  - LinkedIn URL   : Link to their LinkedIn profile
+  - Bio            : Short description of their background and expertise
+  - Order          : Display order on the website's team page
+
+HOW PROFILES ARE DISPLAYED:
+  - Team Gallery page (/gallery/team-gallery)
+  - About Us page (/about)
+  - Profiles are stored in Firebase Firestore and managed live
+
+--------------------------------------------------------------------------------
+ROLE 4: PROPERTY DEVELOPER / BUILDER (Partnership Role)
+--------------------------------------------------------------------------------
+
+WHO IS A DEVELOPER?
+  Premium real estate developers and builders whose projects are listed on
+  RealHubb. Examples: Prestige Group, Godrej Properties, Brigade Group,
+  Sobha Limited, Tata Housing, Birla Estates, Puravankara, L&T Realty,
+  Sattva Group, etc.
+
+DEVELOPER PROFILE FIELDS:
+  - Name        : Developer/builder brand name
+  - Slug        : URL-friendly identifier (e.g. prestige-group)
+  - Logo        : Company logo (uploaded via Cloudinary)
+  - Description : Company overview and reputation
+  - Cities      : Cities where they operate (Bangalore, Hyderabad, Chennai)
+  - Featured    : Whether to highlight on homepage/developers page
+
+HOW DEVELOPER PROFILES ARE USED:
+  - Developers listing page (/developers)
+  - Individual developer page (/developers/:slug)
+  - Each developer page shows their brand info and associated properties
+  - Admin manages all developer profiles via Developers Manager
+
+================================================================================
+SECTION 4 — PROPERTY MANAGER (Admin Feature — Detailed)
+================================================================================
+
+PURPOSE:
+  The Property Manager is the core module of the admin panel. It allows the
+  admin to add and manage all real estate listings that appear on the website.
+
+HOW TO ACCESS:
+  Admin Panel → Properties (left sidebar)
+
+PROPERTY STATUSES:
+  - Ongoing  : Properties currently under construction with active bookings
+  - Upcoming : Projects announced but not yet launched for bookings
+
+PROPERTY TYPES:
+  - Apartment  : Multi-storey residential apartments
+  - Villa      : Independent villa units
+  - Plot       : Residential/commercial land parcels
+  - Commercial : Office spaces, retail, commercial units
+
+SUPPORTED CITIES:
+  - Bangalore (primary)
+  - Hyderabad
+  - Chennai
+
+PROPERTY FIELDS (All data stored in Firestore):
+  1. Property Name     : Full project name (min 10 chars recommended for SEO)
+  2. Developer         : Builder/developer name
+  3. City              : Bangalore / Hyderabad / Chennai
+  4. Location          : Specific locality (e.g. Whitefield, Bangalore)
+  5. URL Slug          : Auto-generated from name; editable (used in page URL)
+  6. Status            : Ongoing or Upcoming
+  7. Type              : Apartment / Villa / Plot / Commercial
+  8. Featured Flag     : Marks property as "Featured" — shown prominently
+  9. Price Range       : Display price (e.g. ₹85L - ₹2.5Cr)
+  10. Area             : Square footage range (e.g. 1200 - 2800 sq.ft)
+  11. BHK Config       : Bedroom configuration (e.g. 2, 3, 4 BHK)
+  12. Possession Date  : Expected handover date (e.g. Dec 2026)
+  13. RERA Number      : Official registration number (adds legal trust signal)
+  14. Description      : Full property description (150+ words recommended)
+  15. Map Embed URL    : Google Maps iframe URL (improves local SEO)
+  16. Amenities        : List of facilities (Swimming Pool, Gym, Clubhouse, etc.)
+  17. Images           : Multiple photos (3-8 recommended; first = cover)
+
+SEO SCORING (Live, per property):
+  Each property gets an automatic SEO Health Score (0–100%) calculated from:
+  - Property name length (≥10 characters)
+  - Description length (≥50 characters)
+  - Images uploaded (≥2 images)
+  - Location and city filled
+  - RERA number provided
+  - Price listed
+  - Map embed URL provided
+  - Amenities listed (≥3)
+
+  Score color coding:
+  - Green (75–100%) : Good SEO
+  - Amber (50–74%)  : Fair SEO
+  - Red  (0–49%)    : Low SEO — needs improvement
+
+FILTERING & SEARCH:
+  - Search by property name, developer name, or location
+  - Filter by City (All / Bangalore / Hyderabad / Chennai)
+  - Filter by Status (All / Ongoing / Upcoming)
+  - Stats strip shows: Total, Ongoing, Upcoming, Featured, SEO ≥75% counts
+
+FIRESTORE INTEGRATION:
+  - All changes are saved live to Firebase Firestore
+  - Status indicator shows "Live · Firestore" or "Local only" in real time
+  - Delete requires confirmation dialog (prevents accidental deletion)
+
+================================================================================
+SECTION 5 — BLOG MANAGER (Admin Feature — Detailed)
+================================================================================
+
+PURPOSE:
+  The Blog Manager allows the admin to write, edit, and publish real estate
+  articles and guides that appear on the /blog section of the website.
+  Blogs drive organic SEO traffic and establish RealHubb as a market authority.
+
+HOW TO ACCESS:
+  Admin Panel → Blog Posts (left sidebar)
+
+BLOG POST FIELDS:
+  1. Cover Image        : Header image (1200×675px recommended; hosted on Cloudinary)
+  2. Title              : Article headline (ideal: 30–60 characters for Google)
+  3. URL Slug           : Auto-generated from title; editable
+  4. Excerpt            : Meta description (ideal: 80–160 characters)
+  5. Category           : Topic category (see categories list below)
+  6. Author             : Author name (default: RealHubb Team)
+  7. Read Time          : Estimated read time (e.g. 5 min read)
+  8. Publish Date       : Date the post was/will be published
+  9. Tags               : Keywords (min 2 recommended for SEO)
+  10. Content           : Full article body with rich text editor
+  11. Published Toggle  : Checked = live on site; Unchecked = saved as draft
+
+BLOG CATEGORIES:
+  - Real Estate News
+  - Home Buying Guide
+  - Investment Tips
+  - RERA & Legal
+  - Home Loans
+  - Market Trends
+  - Bangalore
+  - Hyderabad
+  - Chennai
+  - Interior & Design
+
+RICH TEXT EDITOR (Content Editor):
+  The blog editor works like a mini word processor inside the browser.
+  Available formatting tools:
+  - normal (Ctrl+B)
+  - Italic (Ctrl+I)
+  - Heading 2 (H2) — Main article sections
+  - Heading 3 (H3) — Sub-sections
+  - Bullet List (unordered)
+  - Numbered List (ordered)
+  - Blockquote — highlighted quote block
+  - Divider Line — horizontal separator
+  - Insert Hyperlink (Ctrl+K) — wrap selected text or insert new link
+  - Clear Formatting — removes all styling
+  - Undo / Redo
+
+  PREVIEW MODE: Toggle between Edit and Preview to see how the article
+                will look on the live website before publishing.
+
+  AUTO-SAVE: Editor auto-saves content reference on blur (timestamp shown).
+
+PUBLISHED vs DRAFT:
+  - Published = visible on the /blog listing page and searchable by Google
+  - Draft = hidden from site; only visible in admin panel
+
+SEO SCORING (Live, per blog post):
+  Each post gets an automatic Blog SEO Score (0–100%) calculated from:
+  - Title length (30–70 characters)
+  - Excerpt/meta description (80–160 characters)
+  - Cover image uploaded
+  - Content word count (≥300 words)
+  - Uses H2 or H3 headings in body
+  - URL slug set (≥5 characters)
+  - Category assigned
+  - At least 2 tags added
+
+WORD COUNT TARGETS (shown live in editor):
+  - 300 words   = Minimum for SEO indexing
+  - 600 words   = Good length
+  - 1000+ words = Best for ranking
+
+FILTERING:
+  - Search by title, author, or category
+  - Filter by Category
+  - Filter by Status: All / Published / Draft
+
+================================================================================
+SECTION 6 — DEVELOPERS MANAGER (Admin Feature — Detailed)
+================================================================================
+
+PURPOSE:
+  Manage the real estate developer/builder partner profiles shown on the
+  public-facing /developers pages.
+
+HOW TO ACCESS:
+  Admin Panel → Developers (left sidebar)
+
+DEVELOPER FIELDS:
+  1. Name        : Full developer brand name (e.g. Prestige Group)
+  2. Slug        : URL key (e.g. prestige-group → /developers/prestige-group)
+  3. Logo        : Company logo image (uploaded via Cloudinary)
+  4. Description : Company background, years of experience, reputation
+  5. Cities      : Cities where they operate (multi-select)
+  6. Featured    : Whether to highlight them on the homepage carousel
+
+OPERATIONS:
+  - Add new developer partner profiles
+  - Edit existing developer information
+  - Upload/change developer logos via Cloudinary
+  - Mark developers as Featured
+  - Delete developer profiles (with confirmation)
+  - Search developers by name or city
+
+FEATURED DEVELOPERS (current list includes):
+  Prestige Group, Godrej Properties, Brigade Group, Sobha Limited,
+  Tata Housing, Birla Estates, Puravankara, L&T Realty, Sattva Group,
+  Assetz, Provident Housing, Century Real Estate, Mahindra Lifespaces,
+  DSR Developers, DNR Group, Ramky Estates, Kolte-Patil, Sumadhura,
+  MJR Builders, MANA Developers, and more.
+
+================================================================================
+SECTION 7 — TEAM MANAGER (Admin Feature — Detailed)
+================================================================================
+
+PURPOSE:
+  Manage the staff and advisor profiles displayed on the public Team Gallery
+  and About Us pages of the website.
+
+HOW TO ACCESS:
+  Admin Panel → Team (left sidebar)
+
+TEAM MEMBER FIELDS:
+  1. Name       : Full name of the team member
+  2. Role       : Their job title / designation
+  3. Photo      : Professional headshot (uploaded via Cloudinary)
+  4. LinkedIn   : URL to their LinkedIn profile
+  5. Bio        : Short professional biography (background, expertise, etc.)
+  6. Order      : Numeric value to control display order on the page
+
+OPERATIONS:
+  - Add new team member profiles
+  - Edit existing member information
+  - Upload professional photos via Cloudinary
+  - Reorder team members (via Order field)
+  - Delete team member profiles
+  - Search by name or role
+
+DISPLAY:
+  Team members are shown as professional cards on:
+  - /gallery/team-gallery
+  - /about (About Us page)
+
+================================================================================
+SECTION 8 — ANALYTICS SECTION (Admin Feature — Detailed)
+================================================================================
+
+PURPOSE:
+  View live Google Analytics 4 (GA4) data directly inside the admin panel
+  without having to leave the dashboard or open a separate browser tab.
+
+HOW TO ACCESS:
+  Admin Panel → Analytics (left sidebar)
+
+REAL-TIME DATA (Updates every 30 seconds):
+  - Active Users Right Now: Live count of people on the site at this moment
+  - Active Users by Country: Geographic breakdown of live visitors
+  - Active Users by Page: Which pages are being viewed right now
+
+KEY METRICS (Historical):
+  - Total Sessions
+  - Total Users
+  - Page Views
+  - Average Session Duration
+  - Bounce Rate (with trend indicator: up/down/flat)
+
+TOP PAGES:
+  - List of highest-traffic pages with view counts and percentage share
+  - Direct links to those pages
+
+DEVICE BREAKDOWN:
+  - Mobile users percentage
+  - Tablet users percentage
+  - Desktop users percentage
+
+GEOGRAPHICAL DATA:
+  - Top countries/cities sending traffic
+
+LINKS:
+  - Direct link to full Google Analytics dashboard
+  - GA4 property: 529852769
+  - Powered by Firebase Cloud Functions (ga4realtime, ga4metrics)
+
+PUSH NOTIFICATION PANEL:
+  (Also accessible from the Overview section)
+  - See total push subscriber count
+  - Compose a push notification with:
+      * Title (e.g. "New Property Alert!")
+      * Message body (e.g. "Ramky Fortuna — 2BHK from ₹79L in Whitefield")
+      * Link URL (e.g. /property/ramky-fortuna-whitefield)
+  - Send to ALL subscribers at once with one click
+  - Shows success/failure result after sending
+
+================================================================================
+SECTION 9 — PUBLIC WEBSITE FEATURES (All Visitor-Facing Pages)
+================================================================================
+
+--------------------------------------------------------------------------------
+PAGE 1: HOME PAGE  (/)
+--------------------------------------------------------------------------------
+  - Hero section with property search introduction
+  - Featured/highlighted property listings
+  - Sections showcasing city coverage
+  - Developer partner logos carousel
+  - Call-to-action sections (Contact, Explore)
+  - Smooth scroll progress indicator
+  - Parallax visual effects on scroll
+  - Animated fade-in sections on scroll
+  - WhatsApp chat button (floating)
+
+--------------------------------------------------------------------------------
+PAGE 2: UPCOMING PROJECTS  (/upcoming-projects)
+--------------------------------------------------------------------------------
+  - Grid/list of all properties with status = "Upcoming"
+  - Properties announced but not yet launched for bookings
+  - Shows: project name, developer, location, city, price, BHK, cover image
+  - Filter and search capabilities
+  - Links to individual property detail pages
+
+--------------------------------------------------------------------------------
+PAGE 3: ONGOING PROJECTS  (/ongoing-projects)
+--------------------------------------------------------------------------------
+  - Grid/list of all properties with status = "Ongoing"
+  - Active projects with available units for booking
+  - Can also filter by city: /ongoing-projects/bangalore, /hyderabad, /chennai
+  - Same display format as Upcoming Projects
+
+--------------------------------------------------------------------------------
+PAGE 4: PROPERTY DETAIL  (/property/:slug)
+--------------------------------------------------------------------------------
+  Dedicated detail page for each individual property listing.
+  Contains:
+  - Full image gallery (multiple photos with carousel)
+  - Property name, developer, location
+  - Price range and BHK configuration
+  - Total area (sq.ft)
+  - Status badge (Ongoing / Upcoming)
+  - RERA registration number
+  - Possession / completion date
+  - Detailed description
+  - Amenities list with icons
+  - Google Maps embed (location on map)
+  - Enquiry/Contact form
+  - SEO metadata (title, description, Open Graph)
+
+--------------------------------------------------------------------------------
+PAGE 5: DEVELOPERS  (/developers)
+--------------------------------------------------------------------------------
+  - All real estate developer/builder partner profiles
+  - Logo, name, city presence for each developer
+  - Click through to individual developer page
+
+PAGE 6: DEVELOPER DETAIL  (/developers/:slug)
+--------------------------------------------------------------------------------
+  - Individual builder profile page
+  - Developer logo, description, background
+  - Cities of operation
+  - Properties listed under that developer
+
+--------------------------------------------------------------------------------
+PAGE 7: BLOG  (/blog)
+--------------------------------------------------------------------------------
+  - All published blog posts listed as cards
+  - Each card: cover image, title, excerpt, category, author, date, read time
+  - Categories for filtering
+  - Links to individual blog post pages
+  - SEO-optimized page for organic search
+
+PAGE 8: BLOG DETAIL  (/blog/:slug)
+--------------------------------------------------------------------------------
+  - Full article content with formatted text
+  - Cover image header
+  - Author, date, read time, category tags
+  - Related articles section
+  - Social sharing
+  - SEO metadata
+
+--------------------------------------------------------------------------------
+PAGE 9: REALHUBB NEWS  (/realhubb-news)
+--------------------------------------------------------------------------------
+  - Latest real estate news and updates from RealHubb
+  - Separate from the main blog; focused on market news
+
+--------------------------------------------------------------------------------
+FINANCIAL TOOLS PAGES
+--------------------------------------------------------------------------------
+
+PAGE 10: EMI CALCULATOR  (/emi-calculator)
+  PURPOSE: Calculate monthly home loan EMI before buying a property.
+  INPUTS:
+    - Loan Principal Amount (e.g. ₹50,00,000)
+    - Annual Interest Rate (e.g. 8.5%)
+    - Loan Tenure in Years (e.g. 20 years)
+  OUTPUTS:
+    - Monthly EMI amount
+    - Total repayment amount over tenure
+    - Total interest paid
+    - Principal vs. Interest percentage breakdown (visual chart)
+  USE CASE: Buyer enters property price to understand monthly burden.
+
+PAGE 11: HOME LOAN ELIGIBILITY  (/home-loan-eligibility)
+  PURPOSE: Check how much home loan you qualify for based on income.
+  INPUTS:
+    - Monthly income / salary
+    - Existing EMI obligations
+    - Interest rate
+    - Loan tenure
+  OUTPUTS:
+    - Maximum loan amount eligible for
+    - Estimated property budget
+  USE CASE: Buyers understand their purchasing power before property search.
+
+PAGE 12: RENTAL YIELD CALCULATOR  (/rental-yield-calculator)
+  PURPOSE: Calculate the return on investment from rental income.
+  INPUTS:
+    - Property purchase price
+    - Expected monthly rent
+    - Annual maintenance / costs (optional)
+  OUTPUTS:
+    - Annual rental yield percentage
+    - Net rental income
+    - Comparison benchmarks
+  USE CASE: Investors evaluate whether a property gives good rental returns.
+
+PAGE 13: SALARY ADVISOR  (/salary-advisor)
+  PURPOSE: Advise what price range of property suits your salary.
+  INPUTS:
+    - Monthly gross salary
+    - Existing EMIs / liabilities
+    - Down payment available
+  OUTPUTS:
+    - Recommended property budget range
+    - Suggested loan amount
+    - Suitable city/locality recommendations
+  USE CASE: First-time buyers get guided property price bracket.
+
+PAGE 14: CURRENCY CALCULATOR  (/currency-calculator)
+  PURPOSE: Convert property prices from INR to other currencies.
+  USE CASE: NRI buyers (Non-Resident Indians) planning to invest from abroad.
+  INPUTS:  INR amount, target currency
+  OUTPUTS: Converted amount in selected currency (live or approximate rates)
+
+--------------------------------------------------------------------------------
+SOCIAL & GALLERY PAGES
+--------------------------------------------------------------------------------
+
+PAGE 15: GALLERY  (/gallery)
+  - Hub page linking to all gallery sub-sections
+
+PAGE 16: GOOGLE REVIEWS  (/gallery/google-reviews)
+  - Displays customer Google reviews and ratings for RealHubb
+  - Builds trust and social proof for new visitors
+
+PAGE 17: YOUTUBE GALLERY  (/gallery/youtube)
+  - Embedded YouTube videos (property walkthroughs, market tours, etc.)
+  - Visual content for engaging property exploration
+
+PAGE 18: INSTAGRAM GALLERY  (/gallery/instagram)
+  - Instagram posts embedded/displayed from RealHubb's account
+  - Showcases lifestyle, events, property photos
+
+PAGE 19: LINKEDIN GALLERY  (/gallery/linkedin)
+  - LinkedIn content/posts from RealHubb's official page
+  - Professional updates, industry insights
+
+PAGE 20: TEAM GALLERY  (/gallery/team-gallery)
+  - Displays all team member profiles (photo cards)
+  - Name, role, bio, LinkedIn link for each advisor/staff
+  - Data pulled live from Firebase Firestore (managed in Admin → Team)
+
+--------------------------------------------------------------------------------
+OTHER PAGES
+--------------------------------------------------------------------------------
+
+PAGE 21: ABOUT US  (/about)
+  - Company story, mission, and vision of RealHubb
+  - Team section
+  - Value proposition
+
+PAGE 22: CONTACT US  (/contact-us)
+  - Contact form (name, email, phone, message)
+  - Office address and contact details
+  - WhatsApp integration
+
+PAGE 23: TESTIMONIALS  (/testimonials)
+  - Client testimonials and success stories
+  - Builds credibility for prospective buyers
+
+PAGE 24: CAREER  (/career)
+  - Job openings at RealHubb
+  - Apply for positions in sales, marketing, technology
+  - Career opportunities for joining the team
+
+PAGE 25: FAQ  (/faq)
+  - Frequently Asked Questions about buying property
+  - Questions about RERA, home loans, project status, etc.
+  - Accordion-style expandable answers
+
+PAGE 26: PRIVACY POLICY  (/privacy)
+  - Legal page detailing data collection and usage policies
+
+PAGE 27: TERMS OF SERVICE  (/terms)
+  - Legal terms and conditions for using the RealHubb platform
+
+================================================================================
+SECTION 10 — CROSS-CUTTING FEATURES (Applied Across the Whole App)
+================================================================================
+
+1. SEO OPTIMIZATION
+   - Every page has custom meta titles and descriptions (SEO component)
+   - Open Graph tags for social media sharing previews
+   - Sitemap generation via Vite plugin (vite-sitemap-plugin)
+   - Structured slugs for all property and blog URLs
+   - Fast page load (Vite build optimization + Vercel CDN)
+
+2. GOOGLE ANALYTICS 4 (GA4)
+   - Tracks every page view across the SPA (even without full-page reloads)
+   - Custom GA page tracker fires on every route change
+   - Measurement ID: G-HPYW6VG3WR
+
+3. SCROLL PROGRESS INDICATOR
+   - Thin progress bar at the top of all public pages
+   - Shows how far down the page the visitor has scrolled
+
+4. SCROLL TO TOP
+   - Automatically scrolls to the top when navigating between pages
+   - Smooth scroll behavior
+
+5. FADE-IN ON SCROLL ANIMATIONS
+   - Content sections animate in as you scroll down
+   - Creates a polished, modern feel
+
+6. PARALLAX SECTIONS
+   - Background images scroll at a different speed than content
+   - Used on hero and feature sections for visual depth
+
+7. WHATSAPP FLOATING BUTTON
+   - Fixed WhatsApp chat button on all public pages
+   - Opens a chat with RealHubb's WhatsApp number directly
+
+8. LANGUAGE SELECTOR
+   - Language selection component (multi-language support ready)
+
+9. WEB PUSH NOTIFICATIONS
+   - Visitors can subscribe to browser push notifications
+   - Admin can send alerts to all subscribers from the dashboard
+   - Powered by FCM/VAPID service worker (public/sw.js)
+   - Subscriptions stored in Firebase Firestore (pushSubscriptions collection)
+
+10. CLOUDINARY IMAGE MANAGEMENT
+    - All images (properties, blogs, team, developers) hosted on Cloudinary
+    - Images are served with optimization and CDN caching
+    - Admin panel has dedicated image upload components (single and multi-image)
+    - Supported formats: JPG, PNG, WebP, AVIF
+
+11. FIRESTORE REAL-TIME DATABASE
+    - All content (properties, blogs, team, developers) stored in Firestore
+    - Changes in admin panel reflect on the live website immediately
+    - Admin panel shows "Firestore Live" status indicator
+    - Falls back to local hardcoded data if Firestore is unavailable
+
+================================================================================
+SECTION 11 — KEY DATA ENTITIES (Database Collections)
+================================================================================
+
+COLLECTION: properties
+  Fields: id, slug, name, developer, city, location, status, type, price,
+          priceValue, area, bedrooms, images[], rera, possession, description,
+          featured, amenities[], mapEmbedUrl
+
+COLLECTION: blogPosts
+  Fields: id, slug, title, excerpt, content, coverImage, category, author,
+          readTime, publishedAt, published, tags[]
+
+COLLECTION: developers
+  Fields: id, name, slug, logo, description, cities[], featured
+
+COLLECTION: teamMembers
+  Fields: id, name, role, photo, linkedin, bio, order
+
+COLLECTION: pushSubscriptions
+  Fields: subscription endpoint, keys (for Web Push delivery)
+
+================================================================================
+SECTION 12 — CITIES COVERED
+================================================================================
+
+1. BANGALORE (Primary City)
+   - Largest coverage of property listings
+   - Key localities: Whitefield, Sarjapur Road, Electronic City,
+     Hebbal, Yelahanka, Kanakapura Road, Hennur, Devanahalli, etc.
+
+2. HYDERABAD
+   - Growing coverage of properties
+   - Key localities: Gachibowli, Kondapur, Narsingi, etc.
+
+3. CHENNAI
+   - Listed properties and developer presence
+   - Key localities: OMR, ECR, Porur, Sholinganallur, etc.
+
+================================================================================
+SECTION 13 — SUMMARY OF ADMIN PANEL SECTIONS AT A GLANCE
+================================================================================
+
+  SECTION         | PURPOSE                        | KEY ACTIONS
+  ─────────────────────────────────────────────────────────────────────────
+  Overview         | Dashboard with all stats       | View, Refresh, Navigate
+  Properties       | Property listing management    | Add, Edit, Delete, Filter
+  Blog Posts       | Article/content management     | Write, Edit, Publish, Delete
+  Developers       | Builder profile management     | Add, Edit, Delete, Feature
+  Team             | Staff profile management        | Add, Edit, Reorder, Delete
+  Analytics        | GA4 traffic data & push notif  | View, Send notifications
+
+================================================================================
+SECTION 14 — SUMMARY OF PUBLIC WEBSITE AT A GLANCE
+================================================================================
+
+  FEATURE                  | DESCRIPTION
+  ──────────────────────────────────────────────────────────────────────────
+  Property Listings        | Ongoing + Upcoming projects across 3 cities
+  Property Detail Pages    | Full info: price, images, RERA, map, amenities
+  Developer Profiles       | 30+ premium builder profiles with logos
+  Blog & News              | SEO-optimized articles on real estate topics
+  EMI Calculator           | Monthly payment planner for home loans
+  Home Loan Eligibility    | Checks how much loan a buyer qualifies for
+  Rental Yield Calculator  | Calculates return on rental investment
+  Salary Advisor           | Recommends property budget based on income
+  Currency Converter       | INR to foreign currency for NRI buyers
+  Google Reviews Gallery   | Customer reviews and ratings display
+  YouTube Gallery          | Property tour videos
+  Instagram Gallery        | Social media property photos
+  LinkedIn Gallery         | Professional updates and market insights
+  Team Gallery             | All staff and advisor profiles
+  Testimonials             | Client success stories
+  Career Page              | Job openings at RealHubb
+  FAQ                      | Common questions answered
+  Contact Us               | Enquiry form + contact details
+  Push Notifications       | Browser alerts for new properties/updates
+  WhatsApp Button          | Instant chat with the team
+
+================================================================================
+END OF DOCUMENT
+================================================================================
