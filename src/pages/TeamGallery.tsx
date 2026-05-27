@@ -102,14 +102,23 @@ function useTeamMembers() {
 }
 
 // ─── Team Card ────────────────────────────────────────────────────────────────
-const TeamCard = ({ member, index }: { member: any; index: number }) => (
+const TeamCard = ({ member, index }: { member: any; index: number }) => {
+  const [flipped, setFlipped] = useState(false);
+
+  return (
   <FadeInOnScroll delay={index * 70} direction="up">
-    <div className="group relative h-[380px]" style={{ perspective: "1200px" }}>
+    <div
+      className="relative h-[380px]"
+      style={{ perspective: "1200px" }}
+      onMouseEnter={() => setFlipped(true)}
+      onMouseLeave={() => setFlipped(false)}
+    >
       <div
-        className="relative w-full h-full transition-all duration-700"
-        style={{ transformStyle: "preserve-3d", transform: "rotateY(0deg)" }}
-        onMouseEnter={e => (e.currentTarget.style.transform = "rotateY(180deg)")}
-        onMouseLeave={e => (e.currentTarget.style.transform = "rotateY(0deg)")}
+        className="relative w-full h-full transition-transform duration-700"
+        style={{
+          transformStyle: "preserve-3d",
+          transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
+        }}
       >
 
         {/* ── FRONT ── */}
@@ -200,7 +209,8 @@ const TeamCard = ({ member, index }: { member: any; index: number }) => (
       </div>
     </div>
   </FadeInOnScroll>
-);
+  );
+};
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 const TeamGallery = () => {

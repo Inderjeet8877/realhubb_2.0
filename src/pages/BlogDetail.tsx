@@ -29,31 +29,14 @@ async function translateWithClaude(
   targetLang: string,
   targetLangLabel: string,
 ): Promise<{ title: string; excerpt: string; content: string }> {
-  const systemPrompt = `You are a professional translator. Translate the following blog post fields into ${targetLangLabel} (language code: ${targetLang}).
-
-Rules:
-- Return ONLY valid JSON with keys: title, excerpt, content
-- Preserve all HTML tags in the content field exactly as-is — only translate the visible text between tags
-- Keep proper nouns, brand names (RealHubb, RERA, BDA), and URLs unchanged
-- Match the tone and style of the original
-- Do not add any explanation, preamble, or markdown code fences`;
-
-  const response = await fetch("https://api.anthropic.com/v1/messages", {
+  const response = await fetch("/api/translate", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: "claude-sonnet-4-20250514",
-      max_tokens: 4000,
-      system: systemPrompt,
-      messages: [{ role: "user", content: JSON.stringify({ title, excerpt, content }) }],
-    }),
+    body: JSON.stringify({ title, excerpt, content, targetLang, targetLangLabel }),
   });
 
-  if (!response.ok) throw new Error(`API error: ${response.status}`);
-  const data = await response.json();
-  const raw   = data.content?.find((b: any) => b.type === "text")?.text ?? "";
-  const clean = raw.replace(/^```json\s*/i, "").replace(/```\s*$/i, "").trim();
-  return JSON.parse(clean);
+  if (!response.ok) throw new Error(`Translation error: ${response.status}`);
+  return response.json();
 }
 
 function BlogDetailSkeleton() {
@@ -196,7 +179,8 @@ const BlogDetail = () => {
       <style>{`
         .blog-content a { color: #D7A764; text-decoration: underline; text-underline-offset: 3px; word-break: break-word; transition: color 0.15s; }
         .blog-content a:hover { color: #c4954a; }
-        .blog-content h1, .blog-content h2, .blog-content h3, .blog-content h4 { font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; color: #00274D; }
+        .blog-content h1, .blog-content h2, .blog-content h3, .blog-content h4 { font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; color: #00274D !important; }
+        .blog-content h1 *, .blog-content h2 *, .blog-content h3 *, .blog-content h4 * { color: inherit !important; }
         .blog-content h1 { font-size: 1.75rem; }
         .blog-content h2 { font-size: 1.375rem; }
         .blog-content h3 { font-size: 1.125rem; }

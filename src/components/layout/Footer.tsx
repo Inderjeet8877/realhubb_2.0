@@ -122,7 +122,7 @@ const Footer = () => {
             <h4 className="text-white text-sm font-normal mb-4 tracking-wide">Contact Us</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <Phone className="w-4 h-4 text-[#4DD9C0] mt-0.5 shrink-0" />
+                <Phone className="w-4 h-4 text-[#D7A764] mt-0.5 shrink-0" />
                 <div>
                   <a
                     href={`tel:${companyInfo.contact.phone.replace(/\s/g, "")}`}
@@ -137,7 +137,7 @@ const Footer = () => {
               </li>
 
               <li className="flex items-start gap-3">
-                <Mail className="w-4 h-4 text-[#4DD9C0] mt-0.5 shrink-0" />
+                <Mail className="w-4 h-4 text-[#D7A764] mt-0.5 shrink-0" />
                 <a
                   href={`mailto:${companyInfo.contact.email}`}
                   className="text-white/70 text-xs hover:text-[#D7A764] transition-colors duration-200"
@@ -147,14 +147,14 @@ const Footer = () => {
               </li>
 
               <li className="flex items-start gap-3">
-                <MapPin className="w-4 h-4 text-[#4DD9C0] mt-0.5 shrink-0" />
+                <MapPin className="w-4 h-4 text-[#D7A764] mt-0.5 shrink-0" />
                 <p className="text-white/50 text-xs leading-relaxed">
                   {companyInfo.contact.address}
                 </p>
               </li>
 
               <li className="flex items-start gap-3">
-                <Clock className="w-4 h-4 text-[#4DD9C0] mt-0.5 shrink-0" />
+                <Clock className="w-4 h-4 text-[#D7A764] mt-0.5 shrink-0" />
                 <div>
                   <p className="text-white/50 text-xs">Mon–Fri: {companyInfo.workingHours.weekdays}</p>
                   <p className="text-white/50 text-xs">Sat–Sun: {companyInfo.workingHours.saturday}</p>

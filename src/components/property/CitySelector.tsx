@@ -51,6 +51,7 @@ const CitySelector = ({ value, onChange, cities = defaultCities }: CitySelectorP
                 height="40"
                 className="w-10 h-10 object-contain"
                 loading="lazy"
+                style={c.key === "all" ? { filter: "sepia(1) saturate(1.8) brightness(1.05)" } : undefined}
               />
               <span className={`text-sm font-normal ${isActive ? "text-[#D7A764]" : "text-[#00274D]"}`}>
                 {c.label}

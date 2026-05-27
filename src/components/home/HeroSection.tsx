@@ -154,7 +154,7 @@ Cities
                   <span aria-hidden="true">→</span>
                 </button>
               </Link>
-              <Link to="/contact">
+              <Link to="/contact-us">
                 <button className="px-6 py-3 rounded-full border border-white/35 text-[#D7A764] font-normal text-sm hover:bg-white/10 transition-all duration-200 hover:scale-105">
                   Talk to a Property Expert
                 </button>

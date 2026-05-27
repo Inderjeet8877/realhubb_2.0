@@ -132,12 +132,12 @@ const Blog = () => {
                       <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 flex flex-col h-full">
 
                         {/* Image */}
-                        <div className="relative bg-[#00274D] overflow-hidden" style={{ height: "200px" }}>
+                        <div className="relative bg-[#00274D]">
                           {post.coverImage ? (
                             <img
                               src={post.coverImage}
                               alt={post.title}
-                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 group-hover:opacity-90"
+                              className="w-full h-auto block transition-opacity duration-500 group-hover:opacity-90"
                               onError={e => { (e.target as HTMLImageElement).style.display = "none"; }}
                             />
                           ) : (

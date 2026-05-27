@@ -178,7 +178,16 @@ const Header = () => {
           <div className="flex items-center justify-between h-16 gap-4">
 
             {/* Logo */}
-            <Link to="/" className="shrink-0">
+            <Link
+              to="/"
+              className="shrink-0"
+              onClick={(e) => {
+                if (location.pathname === "/") {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              }}
+            >
               <img src={logotm} alt="RealHubb" width="243" height="70"
                 className="h-16 md:h-20 w-auto object-contain" />
             </Link>
