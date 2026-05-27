@@ -91,6 +91,7 @@ const AppRoutes = () => {
             {/* ✅ Only <Route> elements go inside <Routes> */}
             <Route path="/" element={<Home />} />
             <Route path="/upcoming-projects" element={<CurrentProjects />} />
+            <Route path="/upcoming-projects/:city" element={<CurrentProjects />} />
             <Route path="/ongoing-projects" element={<OngoingProjects />} />
             <Route path="/ongoing-projects/:city" element={<OngoingProjects />} />
             <Route path="/about" element={<AboutUs />} />
