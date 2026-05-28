@@ -145,10 +145,7 @@ const Blog = () => {
                               <BookOpen className="h-10 w-10 text-white/30" />
                             </div>
                           )}
-                          {/* Category badge */}
-                          <span className="absolute top-3 left-3 px-3 py-1 bg-[#D7A764] text-[#00274D] text-[10px] font-normal uppercase tracking-wider rounded-full">
-                            {post.category}
-                          </span>
+
                         </div>
 
                         {/* Content */}

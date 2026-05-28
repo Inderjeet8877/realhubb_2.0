@@ -19,6 +19,8 @@ import {
   Rocket,
   ArrowRight,
 } from "lucide-react";
+import { useTeamMembers } from "@/hooks/useTeamMembers";
+import TeamCard from "@/components/team/TeamCard";
 import CountingNumber from "../components/ui/counting_text";
 import Whatsapp from "../components/assets/whatsapp.png";
 import { FadeInOnScroll } from "@/components/FadeInOnScroll";
@@ -32,6 +34,7 @@ import crealogo from "../components/assets/awards/Untitled design.png";
 const aboutFaqCategory = faqData.find((f) => f.id === "general");
 
 const AboutUs = () => {
+  const { members, loading: teamLoading } = useTeamMembers();
   const { hash } = useLocation();
 
   useEffect(() => {
@@ -295,6 +298,46 @@ const AboutUs = () => {
                 </FadeInOnScroll>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ── REALHUBB REAL HEROES ── */}
+        <section className="py-24 bg-[#00274D]">
+          <div className="px-8 md:px-14 lg:px-20 xl:px-28">
+            <FadeInOnScroll direction="up">
+              <p className="text-[#D7A764] text-[10px] tracking-[0.28em] uppercase font-normal mb-3">
+                RealHubb RealHeroes
+              </p>
+              <h2 className="text-3xl md:text-[40px] font-normal text-white leading-tight mb-3">
+                The people who make it <span className="text-[#D7A764]">happen every day.</span>
+              </h2>
+              <p className="text-white/50 text-sm max-w-xl mb-10">
+                Our advisors, specialists, and support team — the real force behind every successful transaction.
+                Hover over a card to know their story.
+              </p>
+            </FadeInOnScroll>
+
+            {/* Loading skeleton */}
+            {teamLoading && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="h-[380px] rounded-xl bg-white/10 animate-pulse" />
+                ))}
+              </div>
+            )}
+
+            {/* Flip card grid */}
+            {!teamLoading && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {members.map((member: any, index: number) => (
+                  <TeamCard
+                    key={member.id || member.name}
+                    member={member}
+                    index={index}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </section>
 

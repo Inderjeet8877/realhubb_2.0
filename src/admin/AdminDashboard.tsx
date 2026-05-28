@@ -13,6 +13,7 @@ import PropertyManager   from "./sections/PropertyManager_firestore";
 import BlogManager       from "./sections/BlogManager";
 import DevelopersManager from "./sections/DevelopersManager";
 import TeamManager       from "./sections/TeamManager";
+import GalleryManager   from "./sections/GalleryManager";
 import {
   getProperties, getBlogPosts, getDevelopers, getTeamMembers,
 } from "@/lib/firestoreService";
@@ -22,7 +23,7 @@ import { db } from "@/lib/firebase";
 import AnalyticsSection from "./sections/AnalyticsSection";
 
 interface AdminDashboardProps { onLogout: () => void; }
-type Section = "overview" | "properties" | "blogs" | "developers" | "team" | "analytics";
+type Section = "overview" | "properties" | "blogs" | "developers" | "team" | "analytics" | "gallery";
 
 const NAV: { id: Section; label: string; desc: string; icon: React.ReactNode; accent: string }[] = [
   { id: "overview",   label: "Overview",   desc: "Dashboard & SEO",     icon: <LayoutDashboard className="h-4 w-4" />, accent: "#6366f1" },
@@ -30,7 +31,8 @@ const NAV: { id: Section; label: string; desc: string; icon: React.ReactNode; ac
   { id: "blogs",      label: "Blog Posts", desc: "Articles & guides",   icon: <FileText className="h-4 w-4" />,        accent: "#10b981" },
   { id: "developers", label: "Developers", desc: "Builder profiles",    icon: <Users className="h-4 w-4" />,           accent: "#f59e0b" },
   { id: "team",       label: "Team",       desc: "Staff & advisors",    icon: <UserCircle className="h-4 w-4" />,      accent: "#ec4899" },
-  { id: "analytics", label: "Analytics", desc: "GA4 traffic data", icon: <BarChart2 className="h-4 w-4" />, accent: "#8b5cf6" },
+  { id: "analytics", label: "Analytics", desc: "GA4 traffic data",   icon: <BarChart2 className="h-4 w-4" />,       accent: "#8b5cf6" },
+  { id: "gallery",   label: "Gallery",   desc: "Photos & media",    icon: <Eye className="h-4 w-4" />,             accent: "#14b8a6" },
 ];
 
 export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
@@ -125,6 +127,7 @@ export default function AdminDashboard({ onLogout }: AdminDashboardProps) {
           {active === "developers" && <DevelopersManager />}
           {active === "team"       && <TeamManager />}
           {active === "analytics"  && <AnalyticsSection />}
+          {active === "gallery"    && <GalleryManager />}
         </main>
       </div>
     </div>

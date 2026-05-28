@@ -141,16 +141,15 @@ const Header = () => {
 
   const navLinks = [
     { path: "/",              label: "Home"          },
-    { label: "Projects", children: [
-        { path: "/upcoming-projects", label: "Upcoming Projects" },
-        { path: "/ongoing-projects",  label: "Ongoing Projects"  },
-    ]},
-    { label: "Gallery", children: [
-        { path: "/gallery/google-reviews", label: "Reviews & Social Media" },
-        { path: "/gallery/team-gallery",   label: "Team Gallery"           },
-    ]},
+    // { label: "Projects", children: [
+    //     { path: "/upcoming-projects", label: "Upcoming Projects" },
+    //     { path: "/ongoing-projects",  label: "Ongoing Projects"  },
+    // ]},
+    { path: "/projects/ongoing",         label: "Projects"         },
+       { path: "/gallery",         label: "Gallery"         },
+
     { path: "/blog",           label: "Blog"           },
-    { path: "/realhubb-news",     label: "News" },
+    // { path: "/realhubb-news",     label: "News" },
     { label: "Tools", children: [
       { path: "/emi-calculator", label: "EMI Calculator" },
       { path: "/home-loan-eligibility", label: "Loan Eligibility Checker" },

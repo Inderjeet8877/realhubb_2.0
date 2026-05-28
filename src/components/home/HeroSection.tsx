@@ -9,8 +9,22 @@ const POSTER_SRC =
   "https://ik.imagekit.io/o72k8hn7h/realhubb%20/269354_large.mp4/ik-thumbnail.jpg?tr=w-1280,q-60,f-webp";
 
 const CITIES = ["Bangalore", "Hyderabad", "Chennai"];
-const PROPERTY_TYPES = ["Apartment", "Villa", "Plot", "Independent House", "Commercial"];
-const BUDGETS = ["Under ₹50 L", "Under ₹1 Cr", "₹1–2 Cr", "₹2–5 Cr", "Above ₹5 Cr"];
+
+const PROPERTY_TYPES = [
+  { label: "Any Type",  value: ""          },
+  { label: "Apartment", value: "apartment" },
+  { label: "Villa",     value: "villa"     },
+  { label: "Plot",      value: "plot"      },
+];
+
+const BUDGETS = [
+  { label: "Any Budget",   value: ""                   },
+  { label: "Under ₹50L",   value: "0-5000000"          },
+  { label: "₹50L – ₹1Cr", value: "5000000-10000000"   },
+  { label: "₹1Cr – ₹2Cr", value: "10000000-20000000"  },
+  { label: "₹2Cr – ₹5Cr", value: "20000000-50000000"  },
+  { label: "Above ₹5Cr",   value: "50000000-999999999" },
+];
 
 const STATS = [
   { value: "1000+",   label: "Properties Sold"  },
@@ -26,8 +40,8 @@ const HeroSection = () => {
   const [videoSrc, setVideoSrc] = useState<string | undefined>(undefined);
 
   const [city, setCity] = useState("Bangalore");
-  const [propertyType, setPropertyType] = useState("Apartment");
-  const [budget, setBudget] = useState("Under ₹1 Cr");
+  const [propertyType, setPropertyType] = useState("");
+  const [budget, setBudget] = useState("");
 
   const navigate = useNavigate();
 
@@ -63,7 +77,11 @@ const HeroSection = () => {
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const handleSearch = () => {
-    navigate(`/ongoing-projects?city=${encodeURIComponent(city)}&type=${encodeURIComponent(propertyType)}`);
+    const params = new URLSearchParams();
+    if (propertyType) params.set("type", propertyType);
+    if (budget) params.set("price", budget);
+    const qs = params.toString();
+    navigate(`/projects/ongoing/${city.toLowerCase()}${qs ? `?${qs}` : ""}`);
   };
 
   return (
@@ -203,7 +221,7 @@ Cities
                     onChange={e => setPropertyType(e.target.value)}
                     className="w-full appearance-none bg-transparent text-[#00274D] font-medium text-sm focus:outline-none cursor-pointer pr-5"
                   >
-                    {PROPERTY_TYPES.map(t => <option key={t}>{t}</option>)}
+                    {PROPERTY_TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
                   </select>
                   <ChevronDown className="w-3.5 h-3.5 text-gray-400 absolute right-0 pointer-events-none" />
                 </div>
@@ -220,7 +238,7 @@ Cities
                     onChange={e => setBudget(e.target.value)}
                     className="w-full appearance-none bg-transparent text-[#00274D] font-medium text-sm focus:outline-none cursor-pointer pr-5"
                   >
-                    {BUDGETS.map(b => <option key={b}>{b}</option>)}
+                    {BUDGETS.map(b => <option key={b.value} value={b.value}>{b.label}</option>)}
                   </select>
                   <ChevronDown className="w-3.5 h-3.5 text-gray-400 absolute right-0 pointer-events-none" />
                 </div>

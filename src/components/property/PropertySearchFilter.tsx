@@ -12,6 +12,7 @@ export interface PropertyFilters {
 interface PropertySearchFilterProps {
   onFilterChange: (filters: PropertyFilters) => void;
   totalResults: number;
+  initialFilters?: Partial<PropertyFilters>;
 }
 
 const BHK_OPTIONS = [
@@ -51,9 +52,13 @@ const DEFAULT_FILTERS: PropertyFilters = {
   searchQuery: "", bhk: "all", type: "all", city: "all", priceRange: "all",
 };
 
-const PropertySearchFilter = ({ onFilterChange, totalResults }: PropertySearchFilterProps) => {
-  const [filters, setFilters] = useState<PropertyFilters>(DEFAULT_FILTERS);
-  const [showAdvanced, setShowAdvanced] = useState(false);
+const PropertySearchFilter = ({ onFilterChange, totalResults, initialFilters }: PropertySearchFilterProps) => {
+  const merged = initialFilters ? { ...DEFAULT_FILTERS, ...initialFilters } : DEFAULT_FILTERS;
+  const [filters, setFilters] = useState<PropertyFilters>(merged);
+  const [showAdvanced, setShowAdvanced] = useState(() =>
+    !!(initialFilters?.type && initialFilters.type !== "all") ||
+    !!(initialFilters?.priceRange && initialFilters.priceRange !== "all")
+  );
 
   const activeFilterCount = [
     filters.bhk !== "all",

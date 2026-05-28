@@ -13,7 +13,7 @@ export const CLOUDINARY_CONFIG = {
  
 export const CLOUDINARY_UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CONFIG.cloudName}/image/upload`;
  
-export type CloudinaryFolder = "properties" | "blogs" | "developers" | "team";
+export type CloudinaryFolder = "properties" | "blogs" | "developers" | "team" | "gallery";
  
 export interface CloudinaryUploadResponse {
   secure_url:  string;

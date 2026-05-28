@@ -8,6 +8,7 @@ import Layout from "./components/layout/Layout";
 import Home from "./pages/Home";
 import CurrentProjects from "./pages/CurrentProjects";
 import OngoingProjects from "./pages/OngoingProjects";
+import Projects from "./pages/Projects";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import Blog from "./pages/Blog";
@@ -26,17 +27,17 @@ import { ScrollProgress } from "./components/ScrollProgress";
 import Career from "./pages/Career";
 import Gallery from "./pages/Gallery";
 import FaqPage from "./pages/FaqPage";
-import GoogleReviews from "./pages/social/GoogleReviews";
-import YouTubeGallery from "./pages/social/YouTubeGallery";
-import InstagramGallery from "./pages/social/InstagramGallery";
-import LinkedInGallery from "./pages/social/LinkedInGallery";
+// import GoogleReviews from "./pages/social/GoogleReviews";
+// import YouTubeGallery from "./pages/social/YouTubeGallery";
+// import InstagramGallery from "./pages/social/InstagramGallery";
+// import LinkedInGallery from "./pages/social/LinkedInGallery";
 import TeamGallery from "./pages/TeamGallery";
 import DeveloperPage from "./pages/DeveloperPage";
 import DevelopersPage from "./pages/DevelopersPage";
 import TestimonialsPage from "./pages/TestimonialsPage";
 import AdminApp from "./admin/AdminApp";
 import CloudinaryTest from "../src/admin/Cloudinarytest";
-import NewsPage from "./pages/NewsPage";
+// import NewsPage from "./pages/NewsPage";
 import { Currency } from "lucide-react";
 
 const queryClient = new QueryClient();
@@ -90,6 +91,9 @@ const AppRoutes = () => {
           <Routes>
             {/* ✅ Only <Route> elements go inside <Routes> */}
             <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:type" element={<Projects />} />
+            <Route path="/projects/:type/:city" element={<Projects />} />
             <Route path="/upcoming-projects" element={<CurrentProjects />} />
             <Route path="/upcoming-projects/:city" element={<CurrentProjects />} />
             <Route path="/ongoing-projects" element={<OngoingProjects />} />
@@ -98,7 +102,7 @@ const AppRoutes = () => {
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogDetail />} />
-            <Route path="/realhubb-news" element={<NewsPage />} />
+            {/* <Route path="/realhubb-news" element={<NewsPage />} /> */}
             <Route path="/emi-calculator" element={<EMICalculatorPage />} />
             <Route path="/home-loan-eligibility" element={<HomeLoanEligibilityPage />} />
             <Route path="/rental-yield-calculator" element={<RentalYieldPage />} />
@@ -108,11 +112,6 @@ const AppRoutes = () => {
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="/gallery" element={<Gallery />} />
-            <Route path="/gallery/google-reviews" element={<GoogleReviews />} />
-            <Route path="/gallery/youtube" element={<YouTubeGallery />} />
-            <Route path="/gallery/instagram" element={<InstagramGallery />} />
-            <Route path="/gallery/linkedin" element={<LinkedInGallery />} />
-            <Route path="/gallery/team-gallery" element={<TeamGallery />} />
             <Route path="/career" element={<Career />} />
             <Route path="/faq" element={<FaqPage />} />
             <Route path="/developers" element={<DevelopersPage />} />

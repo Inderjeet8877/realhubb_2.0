@@ -259,3 +259,59 @@ export async function seedTeamMembers(members: Omit<AdminTeamMember, "id">[]): P
     )
   );
 }
+
+// ── GALLERY ───────────────────────────────────────────────────────────────────
+// Firestore rule needed (add to Firebase Console → Firestore → Rules):
+// match /gallery/{id} {
+//   allow read: if true;
+//   allow write: if request.auth != null;
+// }
+
+export interface AdminGalleryPost {
+  id:          string;
+  title:       string;
+  description: string;
+  image:       string;
+  category:    string;
+  published:   boolean;
+  publishedAt: string;
+}
+
+export async function getGalleryPosts(): Promise<AdminGalleryPost[]> {
+  const docs  = await fetchAll("gallery");
+  const items = docs.map(d => {
+    const r = d.data();
+    return {
+      id:          d.id,
+      title:       r.title       ?? "",
+      description: r.description ?? "",
+      image:       r.image       ?? "",
+      category:    r.category    ?? "General",
+      published:   r.published   ?? false,
+      publishedAt: r.publishedAt instanceof Timestamp
+        ? r.publishedAt.toDate().toISOString().split("T")[0]
+        : (r.publishedAt ?? ""),
+    } as AdminGalleryPost;
+  });
+  return items.sort((a, b) => (b.publishedAt ?? "").localeCompare(a.publishedAt ?? ""));
+}
+
+export async function addGalleryPost(data: Omit<AdminGalleryPost, "id">): Promise<AdminGalleryPost> {
+  const ref = await addDoc(collection(db, "gallery"), {
+    ...clean(data as any),
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
+  });
+  return { id: ref.id, ...data };
+}
+
+export async function updateGalleryPost(id: string, data: Omit<AdminGalleryPost, "id">): Promise<void> {
+  await updateDoc(doc(db, "gallery", id), {
+    ...clean(data as any),
+    updatedAt: serverTimestamp(),
+  });
+}
+
+export async function deleteGalleryPost(id: string): Promise<void> {
+  await deleteDoc(doc(db, "gallery", id));
+}
