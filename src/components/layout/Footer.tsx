@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Linkedin, Youtube, Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Youtube, Phone, Mail, MapPin, Clock, ShieldCheck, BadgeCheck } from "lucide-react";
 import { companyInfo } from "@/data/company";
 import logotm from "../assets/realhubb-new-logo.png";
 
@@ -165,8 +165,65 @@ const Footer = () => {
 
         </div>
 
+        {/* ── RERA Certification Strip ── */}
+        <div className="mt-10 border border-[#D7A764]/25 rounded-xl bg-white/[0.03] px-5 py-4">
+          <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-8">
+
+            {/* Badge */}
+            <div className="flex items-center gap-3 shrink-0">
+              <div className="w-10 h-10 rounded-full bg-[#D7A764]/10 border border-[#D7A764]/30 flex items-center justify-center shrink-0">
+                <ShieldCheck className="w-5 h-5 text-[#D7A764]" />
+              </div>
+              <div>
+                <p className="text-[#D7A764] text-[10px] tracking-[0.2em] uppercase font-normal">
+                  RERA Registered Agent
+                </p>
+                <p className="text-white text-xs font-normal leading-tight mt-0.5">
+                  Karnataka Real Estate Regulatory Authority
+                </p>
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className="hidden lg:block w-px h-10 bg-white/10 shrink-0" />
+
+            {/* Legal details */}
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 flex-1">
+              <div>
+                <p className="text-white/35 text-[10px] uppercase tracking-[0.15em] mb-0.5">Registered Entity</p>
+                <p className="text-white/80 text-xs font-normal">REALHUBB VENTURES PRIVATE LIMITED</p>
+              </div>
+              <div>
+                <p className="text-white/35 text-[10px] uppercase tracking-[0.15em] mb-0.5">RERA Registration No.</p>
+                <div className="flex items-center gap-1.5">
+                  <BadgeCheck className="w-3.5 h-3.5 text-[#D7A764] shrink-0" />
+                  <p className="text-[#D7A764] text-xs font-normal tracking-wide">
+                    PRM/KA/RERA/1251/309/AG/240926/005147
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Verify link */}
+            <a
+              href="https://rera.karnataka.gov.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-[#D7A764]/30 text-[#D7A764] text-[11px] hover:bg-[#D7A764]/10 transition-colors duration-200 self-start lg:self-center"
+            >
+              <ShieldCheck className="w-3.5 h-3.5" />
+              Verify on RERA
+            </a>
+          </div>
+
+          {/* Legal disclaimer */}
+          <p className="text-white/25 text-[10px] leading-relaxed mt-3 border-t border-white/[0.06] pt-3">
+            This website is operated by RealHubb Ventures Private Limited, a RERA-registered real estate agent under the Real Estate (Regulation and Development) Act, 2016. All property listings are for informational purposes only. Prices, availability, and specifications are subject to change without notice. Buyers are advised to verify all details independently before making any investment decisions.
+          </p>
+        </div>
+
         {/* ── Bottom bar ── */}
-        <div className="border-t border-white/10 mt-10 pt-4 flex flex-col md:flex-row items-center justify-between gap-2">
+        <div className="border-t border-white/10 mt-6 pt-4 flex flex-col md:flex-row items-center justify-between gap-2">
           <p className="text-white/35 text-xs">
             © {currentYear} {companyInfo.name}. All rights reserved.
           </p>
