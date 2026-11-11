@@ -1,12 +1,12 @@
-# RealHubb — Real Estate Web Platform
+# RealHubb website
 
-Production website for **RealHubb Ventures Pvt. Ltd.**, a real estate channel partner operating across Bangalore, Hyderabad, and Chennai. The platform exposes a public-facing property listing site and a password-protected admin CMS backed by Firebase Firestore and Cloudinary.
+The production site for RealHubb Ventures, a real estate channel partner working across Bangalore, Hyderabad and Chennai. Live at [realhubb.in](https://www.realhubb.in).
 
-**Live URL:** https://www.realhubb.in  
-**Repository:** https://github.com/Inderjeet8877/realhubb_2.0  
-**Stack:** React 18 + TypeScript + Vite + Tailwind CSS + Firebase + Cloudinary
+It has two halves. The public side is the property listing site. The other is a password-protected admin CMS where the team edits properties, blog posts, developers, team members and the gallery without touching code. Content is stored in Firestore and images go through Cloudinary.
 
----
+Built with React 18, TypeScript, Vite and Tailwind CSS.
+
+This README is long because it doubles as the handbook for the codebase.
 
 ## Table of Contents
 
@@ -28,8 +28,6 @@ Production website for **RealHubb Ventures Pvt. Ltd.**, a real estate channel pa
 16. [Component Reference](#component-reference)
 17. [Hooks Reference](#hooks-reference)
 18. [Migrating to Next.js](#migrating-to-nextjs)
-
----
 
 ## Tech Stack
 
@@ -53,8 +51,6 @@ Production website for **RealHubb Ventures Pvt. Ltd.**, a real estate channel pa
 | Analytics | Google Analytics 4 | `G-RXW691N6BH` |
 | SSG (partial) | vite-plugin-ssg | Static pre-render for known routes |
 
----
-
 ## Project Structure
 
 ```
@@ -69,7 +65,7 @@ realhubb-website/
 │   └── icon-72.png               # Push notification badge icon
 │
 ├── src/
-│   ├── main.tsx                  # Entry point — mounts <App />
+│   ├── main.tsx                  # Entry point - mounts <App />
 │   ├── App.tsx                   # Root router, GA tracker, scroll-to-top
 │   ├── Analytics.tsx             # GA4 initialisation wrapper
 │   ├── index.css                 # Tailwind directives + global CSS
@@ -110,8 +106,8 @@ realhubb-website/
 │   │   ├── Career.tsx            # Careers / hiring page
 │   │   ├── FaqPage.tsx           # FAQ accordion page
 │   │   ├── TestimonialsPage.tsx  # Client testimonials
-│   │   ├── PrivacyPolicy.tsx     # Legal — privacy policy
-│   │   ├── TermsOfService.tsx    # Legal — terms of service
+│   │   ├── PrivacyPolicy.tsx     # Legal - privacy policy
+│   │   ├── TermsOfService.tsx    # Legal - terms of service
 │   │   ├── NotFound.tsx          # 404 page
 │   │   └── tools/                # Financial calculators
 │   │       ├── EMICalculatorPage.tsx
@@ -136,7 +132,7 @@ realhubb-website/
 │   │   │   ├── EnquiryPopup.tsx          # Lead capture modal
 │   │   │   └── CompletedProjectsSection.tsx
 │   │   ├── team/
-│   │   │   └── TeamCard.tsx      # 3D flip card — front: photo/role, back: bio+CTA
+│   │   │   └── TeamCard.tsx      # 3D flip card - front: photo/role, back: bio+CTA
 │   │   ├── seo/
 │   │   │   └── SEO.tsx           # Helmet wrapper with JSON-LD schema injection
 │   │   ├── faq/
@@ -193,20 +189,18 @@ realhubb-website/
 │       └── blogApi.ts            # (Legacy) blog fetch helpers
 │
 ├── .env                          # Local env vars (gitignored)
-├── vite.config.ts                # Vite config — alias @, SSG routes, sitemap
+├── vite.config.ts                # Vite config - alias @, SSG routes, sitemap
 ├── tailwind.config.ts            # Tailwind theme extension
 ├── tsconfig.json
 └── package.json
 ```
-
----
 
 ## Environment Variables
 
 Create a `.env` file at project root. All browser-exposed variables must be prefixed `VITE_`.
 
 ```env
-# ── Firebase ─────────────────────────────────────────────────────────────────
+# Firebase
 VITE_FIREBASE_API_KEY=
 VITE_FIREBASE_AUTH_DOMAIN=
 VITE_FIREBASE_PROJECT_ID=
@@ -214,19 +208,17 @@ VITE_FIREBASE_STORAGE_BUCKET=
 VITE_FIREBASE_MESSAGING_SENDER_ID=
 VITE_FIREBASE_APP_ID=
 
-# ── Cloudinary ───────────────────────────────────────────────────────────────
+# Cloudinary
 VITE_CLOUDINARY_CLOUD_NAME=
 VITE_CLOUDINARY_UPLOAD_PRESET=      # Must be an unsigned preset
 
-# ── Web Push (server-side only — set in Vercel dashboard, NOT in .env) ───────
+# Web Push (server-side only - set in Vercel dashboard, NOT in .env)
 VAPID_PUBLIC_KEY=
 VAPID_PRIVATE_KEY=
 VAPID_SUBJECT=mailto:info@realhubb.in
 ```
 
-> `VAPID_*` variables have no `VITE_` prefix — they are only used by the Vercel serverless function `/api/send-notification.ts` and must be set in Vercel's environment variable dashboard.
-
----
+> `VAPID_*` variables have no `VITE_` prefix, they are only used by the Vercel serverless function `/api/send-notification.ts` and must be set in Vercel's environment variable dashboard.
 
 ## Getting Started
 
@@ -244,8 +236,6 @@ npm run build
 npm run preview
 ```
 
----
-
 ## Design System
 
 ### Brand Colours
@@ -259,7 +249,7 @@ npm run preview
 
 ### Typography Rules
 
-- All font weights use `font-normal` — bold is intentionally avoided (brand decision)
+- All font weights use `font-normal`, bold is intentionally avoided (brand decision)
 - Body copy: `text-sm` / `text-base` in `text-gray-400` or `text-white/60`
 - Section overlines: `text-[10px] tracking-[0.28em] uppercase font-normal`
 - Hero headlines: `text-4xl` to `text-[56px]` with `font-normal`
@@ -282,8 +272,6 @@ cn("base-class", condition && "conditional-class")
 // → clsx + tailwind-merge, removes duplicate/conflicting classes
 ```
 
----
-
 ## Routing Architecture
 
 Routes are defined in `src/App.tsx`. Public pages are wrapped in `<Layout>` (Header + Footer). Admin pages bypass `<Layout>` entirely.
@@ -296,8 +284,8 @@ Routes are defined in `src/App.tsx`. Public pages are wrapped in `<Layout>` (Hea
 | `/projects` | `Projects` | Defaults to ongoing, all cities |
 | `/projects/:type` | `Projects` | `type` = `ongoing` \| `upcoming` |
 | `/projects/:type/:city` | `Projects` | `city` = `bangalore` \| `hyderabad` \| `chennai` |
-| `/ongoing-projects` | `OngoingProjects` | Legacy — kept for SEO |
-| `/upcoming-projects` | `CurrentProjects` | Legacy — kept for SEO |
+| `/ongoing-projects` | `OngoingProjects` | Legacy, kept for SEO |
+| `/upcoming-projects` | `CurrentProjects` | Legacy, kept for SEO |
 | `/property/:slug` | `PropertyDetail` | Dynamic property pages |
 | `/blog` | `Blog` | Blog listing |
 | `/blog/:slug` | `BlogDetail` | Individual post (Markdown rendered) |
@@ -320,7 +308,7 @@ Routes are defined in `src/App.tsx`. Public pages are wrapped in `<Layout>` (Hea
 
 ### Admin Routes
 
-All mounted under `/admin/*` by `AdminApp`. Firebase Auth is the gate — unauthenticated users are shown `AdminLogin`.
+All mounted under `/admin/*` by `AdminApp`. Firebase Auth is the gate, unauthenticated users are shown `AdminLogin`.
 
 | Path | Component |
 |---|---|
@@ -328,9 +316,9 @@ All mounted under `/admin/*` by `AdminApp`. Firebase Auth is the gate — unauth
 | `/admin/seed` | `FirestoreSeed` (one-time, delete after seeding) |
 | `/admin/test` | `CloudinaryTest` |
 
-### URL-Driven State — Projects Page
+### URL-Driven State: Projects Page
 
-The Projects page derives all display state from the URL — no independent `useState` for city/type:
+The Projects page derives all display state from the URL, no independent `useState` for city/type:
 
 ```
 /projects/ongoing/bangalore?type=apartment&price=10000000-20000000
@@ -341,8 +329,6 @@ The Projects page derives all display state from the URL — no independent `use
 ```
 
 City and type toggles call `navigate()`. The `?type` and `?price` query params are written by the Hero Quick Search and read on component mount to pre-populate the `PropertySearchFilter`.
-
----
 
 ## Data Layer
 
@@ -387,8 +373,6 @@ Single file, all Firestore operations. Naming convention: `{verb}{Collection}`:
 | `updateGalleryPost(id, data)` | `gallery` | Update |
 | `deleteGalleryPost(id)` | `gallery` | Delete |
 
----
-
 ## Firestore Collections & Data Models
 
 ### `properties`
@@ -404,7 +388,7 @@ Single file, all Firestore operations. Naming convention: `{verb}{Collection}`:
   status:      "ongoing" | "upcoming";
   type:        "apartment" | "villa" | "plot" | "commercial";
   price:       string;        // Display string, e.g. "₹85 L onwards"
-  priceValue:  number;        // Numeric rupees value — used for range filter
+  priceValue:  number;        // Numeric rupees value - used for range filter
   area:        string;        // e.g. "1200–2400 sq.ft"
   bedrooms:    string;        // e.g. "2BHK, 3BHK"
   images:      string[];      // Array of Cloudinary secure_url values
@@ -422,14 +406,12 @@ Single file, all Firestore operations. Naming convention: `{verb}{Collection}`:
 
 **Filtering logic** in `applyFilters()` (`src/pages/Projects.tsx`):
 
-- **City** — exact match `p.city.toLowerCase() === cityKey`
-- **BHK** — exact match `p.bhk || p.bedrooms`
-- **Type** — exact match `p.type.toLowerCase()`
-- **Price range** — `p.priceValue >= min && p.priceValue <= max`
-- **Search** — substring match on `title | name | location`
-- **Sort** — `featured === true` floats to top
-
----
+- City: exact match `p.city.toLowerCase() === cityKey`
+- BHK: exact match `p.bhk || p.bedrooms`
+- Type: exact match `p.type.toLowerCase()`
+- Price range: `p.priceValue >= min && p.priceValue <= max`
+- Search: substring match on `title | name | location`
+- Sort: `featured === true` floats to top
 
 ### `blogPosts`
 
@@ -452,8 +434,6 @@ Single file, all Firestore operations. Naming convention: `{verb}{Collection}`:
 }
 ```
 
----
-
 ### `developers`
 
 ```ts
@@ -469,8 +449,6 @@ Single file, all Firestore operations. Naming convention: `{verb}{Collection}`:
   website:       string;
 }
 ```
-
----
 
 ### `team`
 
@@ -488,8 +466,6 @@ Single file, all Firestore operations. Naming convention: `{verb}{Collection}`:
 }
 ```
 
----
-
 ### `gallery`
 
 ```ts
@@ -506,8 +482,6 @@ Single file, all Firestore operations. Naming convention: `{verb}{Collection}`:
 }
 ```
 
----
-
 ### `pushSubscriptions`
 
 ```ts
@@ -520,8 +494,6 @@ Single file, all Firestore operations. Naming convention: `{verb}{Collection}`:
   createdAt: Timestamp;
 }
 ```
-
----
 
 ## Firestore Security Rules
 
@@ -563,8 +535,6 @@ service cloud.firestore {
 }
 ```
 
----
-
 ## Admin CMS
 
 **URL:** `/admin`  
@@ -579,7 +549,7 @@ service cloud.firestore {
 | Developers | `developers` | `DevelopersManager.tsx` |
 | Team | `team` | `TeamManager.tsx` |
 | Gallery | `gallery` | `GalleryManager.tsx` |
-| Analytics | — | `AnalyticsSection.tsx` |
+| Analytics |, | `AnalyticsSection.tsx` |
 
 ### Auth Flow
 
@@ -606,9 +576,7 @@ All admin image fields use the `ImageUpload` component:
 />
 ```
 
-`MultiImageUpload` is identical but manages a `string[]` value — used for property image arrays.
-
----
+`MultiImageUpload` is identical but manages a `string[]` value, used for property image arrays.
 
 ## Cloudinary Image Pipeline
 
@@ -627,7 +595,7 @@ realhubb/
 
 ### Upload
 
-Uses an **unsigned upload preset** — no API secret is ever in the browser bundle. The `CloudinaryFolder` type (`src/lib/cloudinary.ts`) enforces valid folder values at compile time.
+Uses an **unsigned upload preset**, no API secret is ever in the browser bundle. The `CloudinaryFolder` type (`src/lib/cloudinary.ts`) enforces valid folder values at compile time.
 
 ### Optimisation Presets
 
@@ -642,9 +610,7 @@ imagePresets.teamPhoto(url)      // 400×400,  auto format/quality, thumb crop
 imagePresets.thumbnail(url)      // 150×150,  auto format/quality, thumb crop
 ```
 
-`useProperties` applies `propertyCard` preset to every image at normalisation time — once per page load, not on every render.
-
----
+`useProperties` applies `propertyCard` preset to every image at normalisation time, once per page load, not on every render.
 
 ## Push Notifications
 
@@ -673,8 +639,6 @@ Admin creates property / publishes blog post
 - `VAPID_PUBLIC_KEY`
 - `VAPID_PRIVATE_KEY`
 - `VAPID_SUBJECT` = `mailto:info@realhubb.in`
-
----
 
 ## SEO & Analytics
 
@@ -714,8 +678,6 @@ Every page uses the `<SEO>` component:
 - Initialised in `src/Analytics.tsx`
 - SPA page views: `GAPageTracker` component in `App.tsx` fires `gtag("event", "page_view")` on every React Router `location` change
 
----
-
 ## Key Patterns & Conventions
 
 ### Path alias
@@ -730,7 +692,7 @@ import { useProperties } from "@/hooks/Useproperties";
 
 Custom hooks use PascalCase-ish names (`Useproperties.ts`, `Useblogposts.ts`). When rewriting, normalise to camelCase (`useProperties.ts`).
 
-### `clean<T>()` — strip undefined before Firestore writes
+### `clean<T>()`: strip undefined before Firestore writes
 
 Firestore rejects documents with `undefined` field values. Every write passes data through this helper:
 
@@ -769,16 +731,14 @@ Wrap any element to trigger a CSS fade-up when it enters the viewport:
 </FadeInOnScroll>
 ```
 
-Use `delay` (ms) to stagger items in a grid — keep under 300ms to avoid perceived slowness.
-
----
+Use `delay` (ms) to stagger items in a grid, keep under 300ms to avoid perceived slowness.
 
 ## Pages Reference
 
 ### Home (`/`)
 
 Sections composed in `src/pages/Home.tsx`:
-1. `HeroSection` — full-screen video + Quick Search card + stats bar
+1. `HeroSection`, full-screen video + Quick Search card + stats bar
 2. Featured properties carousel
 3. City selector + filtered property grid
 4. Developers logo strip
@@ -793,7 +753,7 @@ Sections composed in `src/pages/Home.tsx`:
 
 - `type` param: `"ongoing"` (default) or `"upcoming"`
 - `city` param: `"bangalore"`, `"hyderabad"`, `"chennai"`, or omitted (All)
-- `?type=apartment&price=10000000-20000000` — set by Hero Quick Search, read by `useSearchParams()` on mount to pre-populate `PropertySearchFilter`
+- `?type=apartment&price=10000000-20000000`, set by Hero Quick Search, read by `useSearchParams()` on mount to pre-populate `PropertySearchFilter`
 - Grid re-animates on type/city change via `animKey` state + CSS keyframe `projectsFadeIn`
 
 ### Gallery (`/gallery`)
@@ -809,8 +769,6 @@ Sections composed in `src/pages/Home.tsx`:
 - Image gallery with thumbnail strip
 - Amenities grid, map embed, RERA number
 - `EnquiryPopup` lead capture modal
-
----
 
 ## Component Reference
 
@@ -838,20 +796,18 @@ See [SEO & Analytics](#seo--analytics).
 
 Wraps children in an `IntersectionObserver` trigger. Applies a CSS entrance animation when the element scrolls into view.
 
----
-
 ## Hooks Reference
 
 ### `useProperties()`
 
 ```ts
 const {
-  properties,    // DataProperty[] — all (ongoing + upcoming combined)
+  properties,    // DataProperty[] - all (ongoing + upcoming combined)
   ongoing,       // DataProperty[]
   upcoming,      // DataProperty[]
-  featured,      // DataProperty[] — where featured === true
+  featured,      // DataProperty[] - where featured === true
   loading,       // boolean
-  fromFirestore, // boolean — false when using static fallback
+  fromFirestore, // boolean - false when using static fallback
 } = useProperties();
 ```
 
@@ -859,8 +815,8 @@ const {
 
 ```ts
 const {
-  posts,         // BlogPost[] — all posts sorted newest-first
-  published,     // BlogPost[] — filtered to published === true
+  posts,         // BlogPost[] - all posts sorted newest-first
+  published,     // BlogPost[] - filtered to published === true
   loading,
   fromFirestore,
   getBySlug,     // (slug: string) => BlogPost | undefined
@@ -893,8 +849,6 @@ const {
 } = useNotifications();
 ```
 
----
-
 ## Migrating to Next.js
 
 ### Routing
@@ -922,13 +876,13 @@ const {
 |---|---|
 | `VITE_FIREBASE_API_KEY` | `NEXT_PUBLIC_FIREBASE_API_KEY` |
 | `VITE_CLOUDINARY_CLOUD_NAME` | `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` |
-| `VAPID_*` (server-only) | `VAPID_*` (unchanged — no prefix needed) |
+| `VAPID_*` (server-only) | `VAPID_*` (unchanged, no prefix needed) |
 
 ### Firebase
 
-- **Client Components** — use existing Firebase client SDK unchanged
-- **Server Components / Route Handlers** — use Firebase Admin SDK (`firebase-admin`) for privileged Firestore reads
-- **Auth** — keep Firebase Auth client-side with a session cookie. Or replace with `next-auth` + Firebase credentials provider.
+- Client Components: use existing Firebase client SDK unchanged
+- Server Components / Route Handlers: use Firebase Admin SDK (`firebase-admin`) for privileged Firestore reads
+- Auth: keep Firebase Auth client-side with a session cookie. Or replace with `next-auth` + Firebase credentials provider.
 
 ### SEO
 
@@ -964,6 +918,4 @@ Move Vercel functions to Next.js Route Handlers:
 - Re-initialise with `npx shadcn@latest init` for Next.js
 - Copy individual component files from `src/components/ui/` directly into the new project
 
----
-
-*Last updated: June 2026 — RealHubb v2.0*
+*Last updated: June 2026, RealHubb v2.0*
